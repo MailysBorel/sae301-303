@@ -1,0 +1,99 @@
+/* Basic form reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Palette Mockéa - Based on SushiShop.fr */
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-gold: #B6A18D;
+    
+    --color-bg-light: #f9f9f9;
+    --color-text-main: #000000;
+    --color-text-muted: #666666;
+    
+    --grid-gap: 24px;
+    --container-width: 1440px;
+    --header-height: 80px;
+
+    /* Typography */
+    --font-primary: 'Outfit', sans-serif;
+    
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-xxl: 2.5rem;
+}
+
+body {
+    font-family: var(--font-primary);
+    background-color: var(--color-bg-light);
+    color: var(--color-text-main);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+    outline: none;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Utilities */
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-gold);
+    color: var(--color-white);
+}
+
+.btn-outline {
+    border: 1px solid var(--color-black);
+    background: transparent;
+    color: var(--color-black);
+}
+
+.btn-outline:hover {
+    background-color: var(--color-black);
+    color: var(--color-white);
+}
+
+/* Typography Utilities */
+.text-uppercase { text-transform: uppercase; }
+.text-center { text-align: center; }
+.font-bold { font-weight: 700; }
