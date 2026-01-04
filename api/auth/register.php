@@ -1,12 +1,11 @@
 <?php
-// En-têtes pour autoriser Angular (CORS)
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
-// Gestion du "Preflight request" (important pour Angular)
+// Gérer les requêtes options
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
@@ -41,19 +40,50 @@ try {
         // 2. Hashage du mot de passe
         $password_hash = password_hash($data->password, PASSWORD_BCRYPT);
 
-        // 3. Insertion
-        $sql = "INSERT INTO users (firstname, lastname, email, password, address) 
-                VALUES (:firstname, :lastname, :email, :password, :address)";
-        
-        $stmt = $pdo->prepare($sql);
+            // 3. Insertion
+            // Support facultatif du champ is_student : si la colonne existe, on l'insère
+            $isStudent = false;
+            if (isset($data->is_student)) {
+                $isStudent = filter_var($data->is_student, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+                if ($isStudent === null) $isStudent = false;
+            }
 
-        if ($stmt->execute([
-            ':firstname' => $data->firstname,
-            ':lastname'  => $data->lastname,
-            ':email'     => $data->email,
-            ':password'  => $password_hash,
-            ':address'   => $data->address
-        ])) {
+            // Vérifier si la colonne is_student existe dans la table users
+            $hasIsStudent = false;
+            try {
+                $res = $pdo->query("SHOW COLUMNS FROM users LIKE 'is_student'");
+                $hasIsStudent = ($res && $res->rowCount() > 0);
+            } catch (Exception $e) {
+                $hasIsStudent = false;
+            }
+
+            if ($hasIsStudent) {
+                $sql = "INSERT INTO users (firstname, lastname, email, password, address, is_student) 
+                        VALUES (:firstname, :lastname, :email, :password, :address, :is_student)";
+                $stmt = $pdo->prepare($sql);
+                $executeParams = [
+                    ':firstname' => $data->firstname,
+                    ':lastname'  => $data->lastname,
+                    ':email'     => $data->email,
+                    ':password'  => $password_hash,
+                    ':address'   => $data->address,
+                    ':is_student'=> $isStudent ? 1 : 0
+                ];
+            } else {
+                $sql = "INSERT INTO users (firstname, lastname, email, password, address) 
+                        VALUES (:firstname, :lastname, :email, :password, :address)";
+                $stmt = $pdo->prepare($sql);
+                $executeParams = [
+                    ':firstname' => $data->firstname,
+                    ':lastname'  => $data->lastname,
+                    ':email'     => $data->email,
+                    ':password'  => $password_hash,
+                    ':address'   => $data->address
+                ];
+            }
+
+            // Exécution de la requête
+            if ($stmt->execute($executeParams)) {
             // Récupération de l'ID généré
             $id = $pdo->lastInsertId();
 
@@ -63,28 +93,34 @@ try {
                 'firstname' => $data->firstname,
                 'lastname' => $data->lastname,
                 'email' => $data->email,
-                'address' => $data->address
+                'address' => $data->address,
+                'is_student' => $isStudent
             ];
 
-            // Simulation d'un token (Base64)
+            // No discount applied here; only return is_student flag
+
+            // Simulation d'un token => chaîne de caractères utilisée pour identifier de manière sécurisée un utilisateur ou une session. 
+            //un token peut permettre de vérifier qu’une requête vient bien d’un utilisateur authentifié, sans avoir à transmettre des identifiants sensibles à chaque requête.
+            //En gros c’est un mécanisme de sécurité et d’authentification qui simplifie la gestion des sessions.
             $token = base64_encode(json_encode(['id' => $id, 'exp' => time() + 3600]));
 
+            // Réponse de succès
             http_response_code(201);
             echo json_encode([
                 "message" => "Compte créé avec succès.",
                 "token"   => $token,
                 "user"    => $user
             ]);
-        } else {
+        } else { // Erreur lors de l'insertion
             http_response_code(503);
             echo json_encode(["message" => "Erreur lors de la création du compte."]);
         }
-    } else {
+    } else { // Données incomplètes
         http_response_code(400);
         echo json_encode(["message" => "Données incomplètes."]);
     }
 
-} catch (PDOException $e) {
+} catch (PDOException $e) { 
     // En cas d'erreur de base de données, on renvoie l'erreur en JSON
     http_response_code(500);
     echo json_encode([

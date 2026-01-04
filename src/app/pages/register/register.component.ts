@@ -54,6 +54,12 @@ import { HeaderComponent } from '../../components/header/header.component';
              <input type="text" id="address" formControlName="address" placeholder="123 Rue de la République">
           </div>
 
+          <div class="form-group">
+            <label>
+              <input type="checkbox" formControlName="is_student"> Je suis étudiant
+            </label>
+          </div>
+
           <button type="submit" class="btn btn-primary full-width" [disabled]="registerForm.invalid || isLoading">
             {{ isLoading ? 'Inscription...' : 'CRÉER MON COMPTE' }}
           </button>
@@ -175,7 +181,8 @@ export class RegisterComponent {
             lastname: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(6)]],
-            address: ['', Validators.required]
+          address: ['', Validators.required],
+          is_student: [false]
         });
     }
 

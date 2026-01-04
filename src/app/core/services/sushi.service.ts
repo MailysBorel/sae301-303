@@ -67,7 +67,7 @@ export class SushiService {
             name: "Salmon Lovers",
             pieces: 18,
             price: 15.90,
-            image: "assets/images/amour_saumon.png",
+            image: "assets/images/tastyblend.jpg",
             description: "Pour les amoureux du saumon.",
             flavors: ["coriandre", "saumon", "avocat"],
             foods: [
@@ -232,7 +232,7 @@ export class SushiService {
 
             // L'API renvoie des noms en français (nom, prix, saveurs...)
             // Notre site utilise l'anglais (name, price, flavors...)
-            // On fait donc la conversion ici pour que tout le reste du site soit propre.
+            // On fait donc la conversion pour que tout le reste du site soit propre.
             map(apiBoxes => apiBoxes.map(b => ({
                 id: b.id,
                 name: b.nom,
@@ -244,7 +244,6 @@ export class SushiService {
                 foods: b.aliments ? b.aliments.map((a: any) => ({ nom: a.nom, quantite: a.quantite })) : []
             }))),
 
-            // GESTION D'ERREUR
             // Si l'API plante, on renvoie les données de test (this.mockBoxes)
             catchError(error => {
                 // console.warn('API connection failed or timed out, using mock data:', error);
@@ -253,9 +252,7 @@ export class SushiService {
         );
     }
 
-    /**
-     * Choisit l'image à afficher en fonction du nom de l'image reçu de l'API.
-     */
+
     private resolveImage(apiImage: string): string {
         if (!apiImage) return 'assets/images/logo_blanc.png';
 

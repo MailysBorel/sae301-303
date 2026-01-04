@@ -185,6 +185,7 @@ export class CartComponent implements OnInit {
 
     ngOnInit() {
         this.cartItems$ = this.cartService.items$;
+
         this.total$ = this.cartService.items$.pipe(
             map(items => items.reduce((acc, item) => acc + (item.box.price * item.quantity), 0))
         );

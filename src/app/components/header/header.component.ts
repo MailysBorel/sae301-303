@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; 
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
-import { AuthService, User } from '../../core/services/auth.service';
-import { CartService } from '../../core/services/cart.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { RouterLink } from '@angular/router'; 
+import { AuthService, User } from '../../core/services/auth.service'; // Service d'authentification
+import { CartService } from '../../core/services/cart.service'; // Service de gestion du panier
+import { Observable } from 'rxjs'; 
+import { map } from 'rxjs/operators'; 
 
 @Component({
   selector: 'app-header',
