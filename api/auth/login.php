@@ -1,9 +1,10 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Origin: *"); 
+header("Content-Type: application/json; charset=UTF-8"); // Définir le type de contenu comme JSON
+header("Access-Control-Allow-Methods: POST, OPTIONS"); // Autoriser les méthodes POST et OPTIONS
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"); 
 
+// Gérer les requêtes options
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit();
@@ -28,7 +29,7 @@ try {
         if($user && password_verify($data->password, $user['password'])){
             unset($user['password']);
 
-            // Détection du statut étudiant si présent (ne déclenche aucune remise ici)
+            // Détection du statut étudiant si présent
             $isStudent = false;
             if (isset($data->is_student)) {
                 $isStudent = filter_var($data->is_student, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
@@ -37,22 +38,23 @@ try {
                 $isStudent = (bool)$user['is_student'];
             }
 
-            $user['is_student'] = $isStudent;
+            $user['is_student'] = $isStudent; // Ajouter le statut étudiant à la réponse
 
+            // Réussite de la connexion
             echo json_encode([
                 "message" => "Login successful.",
                 "token" => base64_encode(json_encode($user)),
                 "user" => $user
             ]);
         } else { // Identifiants invalides
-            http_response_code(401);
+            http_response_code(401); //si identifiants invalides => code 401
             echo json_encode(["message" => "Identifiants invalides."]);
         }
     } else { // Données incomplètes
-        http_response_code(400);
+        http_response_code(400); //si données incomplètes => code 400
         echo json_encode(["message" => "Données incomplètes."]);
     }
 } catch (Exception $e) { // Erreur serveur
-    http_response_code(500);
+    http_response_code(500); //si erreur du serveur => code 500
     echo json_encode(["error" => $e->getMessage()]);
 }

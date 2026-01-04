@@ -14,21 +14,23 @@ import { Observable } from 'rxjs';
     <app-header></app-header>
     
     <main>
-      <!-- Hero Section : Bannière principale avec le texte accrocheur -->
-      <section class="hero">
-        <div class="container hero-content">
-        <img src="assets/images/logo_blanc.png" alt="Mokéa"  style="width: 400px; margin-bottom: 20px;">
+    
+      // Section de la bannière
+      <section>
+        <div>
+<img src="assets/images/hero2.png" alt="hero" style="width: 100%; height: auto; margin-bottom: 20px;">
+
         </div>
       </section>
 
-      <!-- Section de filtres (pour l'instant décorative via HTML/CSS) -->
+
       <section class="categories container">
         <ul class="category-list">
             <li class="active">Boxes</li>
         </ul>
       </section>
 
-      <!-- Grille de produits : Affiche la liste des boîtes récupérées via le service -->
+      // grille des produits recupérés via l'API
       <section class="products container">
         <div class="product-grid">
           <!-- La boucle *ngFor parcourt le résultat 'async' (asynchrone) de l'observable 'boxes$' -->
@@ -109,13 +111,12 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
   // Observable qui contiendra la liste des boîtes de sushis
-  // Le suffixe '$' est une convention pour dire "ceci est un flux de données" (Stream)
   boxes$!: Observable<SushiBox[]>;
 
-  constructor(private sushiService: SushiService) { }
+  constructor(private sushiService: SushiService) { } 
 
   ngOnInit() {
-    // Au chargement de la page, on demande au service de nous fournir les boîtes (API ou Mock)
+    // Au chargement de la page, on demande au service de nous fournir les boîtes (API)
     this.boxes$ = this.sushiService.getBoxes();
   }
 }

@@ -167,40 +167,42 @@ import { HeaderComponent } from '../../components/header/header.component';
     }
   `]
 })
+// Composant de la page d'inscription
 export class RegisterComponent {
-    registerForm: FormGroup;
-    isLoading = false;
+    registerForm: FormGroup; 
+    isLoading = false; 
 
     constructor(
         private fb: FormBuilder,
         private authService: AuthService,
         private router: Router
     ) {
-        this.registerForm = this.fb.group({
+        this.registerForm = this.fb.group({ // Initialisation du formulaire
+          //champs requis
             firstname: ['', Validators.required],
             lastname: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(6)]],
           address: ['', Validators.required],
-          is_student: [false]
+          is_student: [false] //case à cocher pour étudiant
         });
     }
-
+// Vérifie si un champ du formulaire est invalide
     isFieldInvalid(field: string): boolean {
-        const control = this.registerForm.get(field);
+        const control = this.registerForm.get(field); 
         return !!(control && control.invalid && (control.dirty || control.touched));
     }
-
+// Méthode au moment de la soumission du formulaire
     onSubmit() {
         if (this.registerForm.valid) {
             this.isLoading = true;
             this.authService.register(this.registerForm.value).subscribe({
                 next: () => {
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/']); // Rediriger vers la page d'accueil après inscription réussie
                 },
                 error: (err) => {
                     console.error(err);
-                    this.isLoading = false;
+                    this.isLoading = false; // Réinitialiser l'indicateur de chargement en cas d'erreur
                 }
             });
         }

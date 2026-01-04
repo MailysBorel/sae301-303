@@ -10,6 +10,8 @@ import { HeaderComponent } from '../../components/header/header.component';
     standalone: true,
     imports: [CommonModule, ReactiveFormsModule, RouterLink, HeaderComponent],
     template: `
+    //html de la Page de connexion
+
     <app-header></app-header>
     <div class="auth-container">
       <div class="auth-card">
@@ -150,38 +152,38 @@ import { HeaderComponent } from '../../components/header/header.component';
   `]
 })
 export class LoginComponent {
-    loginForm: FormGroup;
-    isLoading = false;
+    loginForm: FormGroup; // Formulaire de connexion
+    isLoading = false; // Indicateur de chargement
 
     constructor(
-        private fb: FormBuilder,
-        private authService: AuthService,
-        private router: Router
-    ) {
-        this.loginForm = this.fb.group({
+        private fb: FormBuilder, // FormBuilder pour créer le formulaire
+        private authService: AuthService, // Service d'authentification
+        private router: Router 
+    ) { //navigation
+        this.loginForm = this.fb.group({ 
             email: ['', [Validators.required, Validators.email]],
             password: ['', [Validators.required, Validators.minLength(6)]]
         });
     }
-
+// Méthode pour vérifier si un champ du formulaire est invalide
     isFieldInvalid(field: string): boolean {
         const control = this.loginForm.get(field);
         return !!(control && control.invalid && (control.dirty || control.touched));
     }
-
+// Méthode au moment de la soumission du formulaire
     onSubmit() {
         if (this.loginForm.valid) {
             this.isLoading = true;
             const { email, password } = this.loginForm.value;
-
+// Appel du service d'authentification pour se connecter
             this.authService.login(email, password).subscribe({
                 next: () => {
-                    this.router.navigate(['/']); // Redirect to home
+                    this.router.navigate(['/']); // Rediriger vers la page d'accueil après connexion réussie
                 },
                 error: (err) => {
                     console.error(err);
-                    this.isLoading = false;
-                    // Handle error (show toast etc.)
+                    this.isLoading = false; // Réinitialiser l'indicateur de chargement en cas d'erreur
+                    
                 }
             });
         }

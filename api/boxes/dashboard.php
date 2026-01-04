@@ -2,7 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
-header("Content-Type: application/json; charset=utf-8");
+header("Content-Type: application/json; charset=utf-8"); 
 
 try {
     // Connexion à la base de données
@@ -20,18 +20,18 @@ try {
     ]);
 
     // Exécution de la requête pour compter les utilisateurs
-    $stmt = $pdo->query("SELECT COUNT(*) AS count FROM utilisateurs");
-    $row = $stmt->fetch();
-    $count = (int) ($row['count'] ?? 0);
+    $stmt = $pdo->query("SELECT COUNT(*) AS count FROM users");  // Requête SQL pour compter les utilisateurs
+    $row = $stmt->fetch(); // Récupérer la ligne de résultat
+    $count = (int) ($row['count'] ?? 0); // et enfin extraire le nombre d'utilisateurs
 
     // Retourner le résultat en JSON
     echo json_encode(['count' => $count], JSON_UNESCAPED_UNICODE);
 
     // Fermer la connexion
 } catch (PDOException $e) {
-    http_response_code(500);
-    echo json_encode([
-        'error' => 'database_error',
+    http_response_code(500); // Erreur serveur => code 500
+    echo json_encode([ 
+        'error' => 'database_error', 
         'message' => $e->getMessage()
     ], JSON_UNESCAPED_UNICODE);
 } catch (Exception $e) {// Erreur générale

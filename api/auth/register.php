@@ -41,7 +41,6 @@ try {
         $password_hash = password_hash($data->password, PASSWORD_BCRYPT);
 
             // 3. Insertion
-            // Support facultatif du champ is_student : si la colonne existe, on l'insère
             $isStudent = false;
             if (isset($data->is_student)) {
                 $isStudent = filter_var($data->is_student, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
@@ -56,7 +55,8 @@ try {
             } catch (Exception $e) {
                 $hasIsStudent = false;
             }
-
+            
+            // Préparer la requête en fonction de l'existence de la colonne is_student
             if ($hasIsStudent) {
                 $sql = "INSERT INTO users (firstname, lastname, email, password, address, is_student) 
                         VALUES (:firstname, :lastname, :email, :password, :address, :is_student)";
@@ -69,6 +69,7 @@ try {
                     ':address'   => $data->address,
                     ':is_student'=> $isStudent ? 1 : 0
                 ];
+                // Si la colonne n'existe pas, on n'inclut pas is_student dans l'insertion
             } else {
                 $sql = "INSERT INTO users (firstname, lastname, email, password, address) 
                         VALUES (:firstname, :lastname, :email, :password, :address)";
@@ -99,12 +100,13 @@ try {
 
             // No discount applied here; only return is_student flag
 
-            // Simulation d'un token => chaîne de caractères utilisée pour identifier de manière sécurisée un utilisateur ou une session. 
+            // Simulation d'un token.
+            // TOKEN c'est une chaîne de caractères utilisée pour identifier de manière sécurisée un utilisateur ou une session. 
             //un token peut permettre de vérifier qu’une requête vient bien d’un utilisateur authentifié, sans avoir à transmettre des identifiants sensibles à chaque requête.
             //En gros c’est un mécanisme de sécurité et d’authentification qui simplifie la gestion des sessions.
             $token = base64_encode(json_encode(['id' => $id, 'exp' => time() + 3600]));
 
-            // Réponse de succès
+            // Réponse succès
             http_response_code(201);
             echo json_encode([
                 "message" => "Compte créé avec succès.",

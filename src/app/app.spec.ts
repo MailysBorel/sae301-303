@@ -1,23 +1,22 @@
 import { TestBed } from '@angular/core/testing';
-import { App } from './app';
+import { AppComponent } from './app.component';
 
-describe('App', () => {
+describe('AppComponent', () => { // Tests unitaires pour le composant racine de l'application
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [App],
-    }).compileComponents();
+      imports: [AppComponent], // Importation du composant à tester
+    }).compileComponents(); // Compilation 
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(App);
+  it('devrait créer l\'application', () => { // Test pour vérifier la création du composant
+    const fixture = TestBed.createComponent(AppComponent); // Création de l'instance
+    const app = fixture.componentInstance; // Récupération de l'instance
+    expect(app).toBeTruthy(); // Vérification que l'instance est créée avec succès
+  });
+// Test pour vérifier le titre de l'application
+  it('devrait avoir le titre correct', () => {
+    const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it('should render title', async () => {
-    const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, mokea');
+    expect(app.title).toBe('mokea');
   });
 });

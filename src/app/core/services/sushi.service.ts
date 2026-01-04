@@ -14,7 +14,7 @@ export class SushiService {
      */
     private apiUrl = 'http://127.0.0.1/sae301/api/boxes/index.php';
 
-
+// Données de test en cas D'ECHEC de l'API
     private mockBoxes: SushiBox[] = [
         {
             id: 1,
@@ -246,13 +246,12 @@ export class SushiService {
 
             // Si l'API plante, on renvoie les données de test (this.mockBoxes)
             catchError(error => {
-                // console.warn('API connection failed or timed out, using mock data:', error);
                 return of(this.mockBoxes);
             })
         );
     }
 
-
+// Méthode pour déterminer l'image locale à utiliser en fonction du nom de l'image de l'API
     private resolveImage(apiImage: string): string {
         if (!apiImage) return 'assets/images/logo_blanc.png';
 
@@ -270,9 +269,9 @@ export class SushiService {
         }
 
         // Image par défaut si rien ne correspond
-        return 'assets/images/logo_blanc.png';
+        return 'assets/images/tastyblend.jpg';
     }
-
+// Méthode pour obtenir une boxe de sushi par son ID
     getBoxById(id: number): Observable<SushiBox | undefined> {
         // For single box, we can also try API or fallback
         return of(this.mockBoxes.find(b => b.id === id));

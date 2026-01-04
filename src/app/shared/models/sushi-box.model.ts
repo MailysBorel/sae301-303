@@ -1,10 +1,10 @@
 export interface SushiBox {
     id: number;
-    name: string;   // Changed from 'nom'
+    name: string;   // nom depuis 'nom'
     pieces: number;
-    price: number;  // Changed from 'prix'
+    price: number;  // chiffre depuis 'prix'
     image: string;
     description?: string;
-    flavors?: string[]; // From API 'flavors'
-    foods?: any[];      // From API 'foods'
+    flavors?: string[]; // depuis API 'flavors'
+    foods?: any[];      // depuis API 'foods'
 }
