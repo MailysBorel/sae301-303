@@ -12,18 +12,18 @@ import { map } from 'rxjs/operators';
   imports: [CommonModule, RouterLink],
   template: ` 
 
-  //html barre de navigation
+
 
     <header class="header">
       <div class="container header-content">
 
-        //logo mokéa
+    
         <a routerLink="/" class="logo">
           <img src="assets/images/logo_blanc.png" alt="Mokéa" class="logo-img">
         </a>
 
 
-        //authentification 
+
         <div class="user-actions">
           <ng-container *ngIf="currentUser$ | async as user; else guestTemplate">
              <a (click)="logout()" class="action-link" style="cursor: pointer;">
@@ -35,8 +35,7 @@ import { map } from 'rxjs/operators';
               <span>Connexion</span>
             </a>
           </ng-template>
-         
-          //btn pannier
+
           <a routerLink="/cart" class="action-btn cart-btn">
             <span>Panier</span>
             <span class="badge" *ngIf="(cartCount$ | async) as count">{{ count }}</span>
@@ -101,7 +100,7 @@ import { map } from 'rxjs/operators';
       font-weight: 600;
     }
 
-    /authentification et pannier */
+    /* authentification et panier */
 
     .user-actions {
       display: flex;
@@ -173,7 +172,7 @@ export class HeaderComponent implements OnInit { // Implémente OnInit (exécuti
       map(items => items.reduce((acc, item) => acc + item.quantity, 0)) // permet d'additionner les quantités de chaque article
     );
   }
-  
+
 // Méthode de déconnexion
   logout() {
     this.authService.logout();

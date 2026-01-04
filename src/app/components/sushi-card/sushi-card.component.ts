@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule],
   template: `
-  // Carte de la boxe de sushi
+  
 
     <div class="card" *ngIf="box" (click)="openProduct()">
       <div class="card-image-wrapper">

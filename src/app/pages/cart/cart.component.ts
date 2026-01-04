@@ -10,8 +10,6 @@ import { map } from 'rxjs/operators';
     standalone: true,
     imports: [CommonModule, HeaderComponent],
     template: `
-    // html de la Page panier
-
     <app-header></app-header>
     <div class="container cart-container">
       <h1>Votre Panier</h1>

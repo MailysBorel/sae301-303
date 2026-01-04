@@ -13,8 +13,6 @@ import { CartService } from '../../core/services/cart.service';
   standalone: true,
   imports: [CommonModule, RouterLink, HeaderComponent],
   template: `
-  // HTML de la page produit
-
     <app-header></app-header>
     <div class="container product-page">
       <div *ngIf="box$ | async as box; else loading">

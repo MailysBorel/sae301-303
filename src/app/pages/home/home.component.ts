@@ -15,7 +15,7 @@ import { Observable } from 'rxjs';
     
     <main>
     
-      // Section de la bannière
+    
       <section>
         <div>
 <img src="assets/images/hero2.png" alt="hero" style="width: 100%; height: auto; margin-bottom: 20px;">
@@ -30,7 +30,7 @@ import { Observable } from 'rxjs';
         </ul>
       </section>
 
-      // grille des produits recupérés via l'API
+  
       <section class="products container">
         <div class="product-grid">
           <!-- La boucle *ngFor parcourt le résultat 'async' (asynchrone) de l'observable 'boxes$' -->
