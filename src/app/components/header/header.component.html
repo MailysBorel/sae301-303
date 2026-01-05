@@ -1,30 +1,32 @@
+<!-- Header -->
 <header class="header">
     <div class="container header-content">
 
-
+        <!-- Logo -->
         <a routerLink="/home" class="logo">
             <img src="assets/images/logo_blanc.png" alt="Mokéa" class="logo-img">
         </a>
 
 
-
+        <!-- Navigation principale -->
         <nav class="main-nav">
             <a routerLink="/home" class="nav-link">Acceuil</a>
             <a routerLink="/rgpd" class="nav-link">RGPD</a>
             <a routerLink="/dashboard" class="nav-link">Dashboard</a>
         </nav>
-
+        <!-- Actions utilisateur -->
         <div class="user-actions">
             <a routerLink="/cart" class="action-btn cart-btn">
                 <span>Panier</span>
                 <span class="badge" *ngIf="(cartCount$ | async) as count">{{ count }}</span>
             </a>
-            
+            <!-- Utilisateur connecté -->
             <ng-container *ngIf="currentUser$ | async as user; else guestTemplate">
                 <a (click)="logout()" class="action-link" style="cursor: pointer;">
                     Déconnexion
                 </a>
             </ng-container>
+            <!-- Invité -->
             <ng-template #guestTemplate>
                 <a routerLink="/login" class="action-link">
                     <span>Connexion</span>

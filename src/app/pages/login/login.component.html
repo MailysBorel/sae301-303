@@ -1,33 +1,39 @@
-<app-header></app-header>
+<!-- Formulaire de connexion -->
 <div class="auth-container">
     <div class="auth-card">
+        <!-- titre et sous titre -->
         <h2>Connexion</h2>
         <p class="subtitle">Heureux de vous revoir !</p>
-
+        <!-- Formulaire de connexion -->
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
+                <!-- identifiant:email -->
                 <label for="email">Email</label>
+                <!-- champ email avec verification d'erreur -->
                 <input type="email" id="email" formControlName="email" placeholder="votre@email.com"
                     [class.error]="isFieldInvalid('email')">
+                    <!-- message d'erreur -->
                 <div class="error-msg" *ngIf="isFieldInvalid('email')">
                     Email valide requis.
                 </div>
             </div>
-
+            <!-- mot de passe -->
             <div class="form-group">
                 <label for="password">Mot de passe</label>
+                <!-- champ mot de passe avec verification d'erreur -->
                 <input type="password" id="password" formControlName="password" placeholder="••••••••"
                     [class.error]="isFieldInvalid('password')">
+                <!-- message d'erreur -->
                 <div class="error-msg" *ngIf="isFieldInvalid('password')">
                     Mot de passe requis (min 6 caractères).
                 </div>
             </div>
-
+            <!-- bouton de connexion -->
             <button type="submit" class="btn btn-primary full-width" [disabled]="loginForm.invalid || isLoading">
                 {{ isLoading ? 'Connexion...' : 'SE CONNECTER' }}
             </button>
         </form>
-
+        <!-- texte pour accéder au formulaire d'inscription -->
         <div class="auth-footer">
             <p>Pas encore de compte ? <a routerLink="/register">Créer un compte</a></p>
         </div>

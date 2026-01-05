@@ -1,13 +1,17 @@
+<!-- template Carte sushi -->
 <div class="card" *ngIf="box" (click)="openProduct()">
     <div class="card-image-wrapper">
+        <!-- image du produit -->
         <img [src]="box.image" [alt]="box.name" class="card-image" (error)="box.image = 'assets/images/logo_blanc.png'">
         <span class="card-badge" *ngIf="box.pieces > 20">BEST SELLER</span>
     </div>
+    <!-- Contenu de la carte -->
     <div class="card-content">
         <div class="card-info">
             <h3 class="card-title">{{ box.name }}</h3>
             <p class="card-pieces">{{ box.pieces }} pièces</p>
         </div>
+        <!-- Bouton d'ajout au panier -->
         <div class="card-footer">
             <span class="card-price">{{ box.price | currency:'EUR':'symbol':'1.2-2' }}</span>
             <button class="add-btn" (click)="onAdd($event)">

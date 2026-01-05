@@ -1,11 +1,11 @@
-<app-header></app-header>
 <div class="auth-container">
+    <!-- Formulaire d'inscription -->
     <div class="auth-card">
         <h2>Créer un compte</h2>
         <p class="subtitle">Rejoignez la communauté Mokéa</p>
-
+        
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-
+            <!-- nom et prénom -->
             <div class="row">
                 <div class="form-group half">
                     <label for="firstname">Prénom</label>
@@ -16,35 +16,35 @@
                     <input type="text" id="lastname" formControlName="lastname" placeholder="Doe">
                 </div>
             </div>
-
+            <!-- email -->
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" formControlName="email" placeholder="votre@email.com"
                     [class.error]="isFieldInvalid('email')">
             </div>
-
+            <!-- mot de passe -->
             <div class="form-group">
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" formControlName="password" placeholder="••••••••"
                     [class.error]="isFieldInvalid('password')">
             </div>
-
+            <!-- adresse -->
             <div class="form-group">
                 <label for="address">Adresse</label>
                 <input type="text" id="address" formControlName="address" placeholder="123 Rue de la République">
             </div>
-
+            <!-- case à cocher étudiant -->
             <div class="form-group">
                 <label>
                     <input type="checkbox" formControlName="is_student"> Je suis étudiant
                 </label>
             </div>
-
+            <!-- submit d'istcription -->
             <button type="submit" class="btn btn-primary full-width" [disabled]="registerForm.invalid || isLoading">
                 {{ isLoading ? 'Inscription...' : 'CRÉER MON COMPTE' }}
             </button>
         </form>
-
+        <!-- texte pour accéder au formulaire de connexion -->
         <div class="auth-footer">
             <p>Déjà un compte ? <a routerLink="/login">Se connecter</a></p>
         </div>

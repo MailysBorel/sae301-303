@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../components/header/header.component';
 import { CartService, CartItem } from '../../core/services/cart.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,7 +7,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })

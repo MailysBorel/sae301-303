@@ -1,10 +1,13 @@
-<app-header></app-header>
+<!-- template produit -->
 <div class="container product-page">
-    <div *ngIf="box$ | async as box; else loading">
+    <!--  -->
+    <div *ngIf="box$ | async as box; else loading">   
         <div class="product-grid">
             <div class="product-image">
+                <!-- image du produit -->
                 <img [src]="box.image" [alt]="box.name">
             </div>
+            <!-- détails du produit -->
             <div class="product-details">
                 <h1>{{ box.name }}</h1>
                 <p class="sub">{{ box.pieces }} pièces</p>
@@ -13,13 +16,15 @@
 
                 <h3>Contenu</h3>
                 <ul>
+                    <!-- liste des ingrédients -->
                     <li *ngFor="let f of box.foods">{{ f.nom }} — {{ f.quantite }}</li>
                 </ul>
-
+                <!-- bouton ajouter au panier -->
                 <button class="btn btn-primary" (click)="addToCart(box)">Ajouter au panier</button>
             </div>
         </div>
     </div>
+    <!-- template de chargement -->
     <ng-template #loading>
         <p>Chargement...</p>
     </ng-template>

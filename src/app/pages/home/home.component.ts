@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../components/header/header.component';
 import { SushiCardComponent } from '../../components/sushi-card/sushi-card.component';
 import { SushiService } from '../../core/services/sushi.service';
 import { SushiBox } from '../../shared/models/sushi-box.model';
@@ -9,7 +8,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, SushiCardComponent],
+  imports: [CommonModule, SushiCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
