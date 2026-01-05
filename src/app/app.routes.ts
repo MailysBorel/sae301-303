@@ -3,15 +3,18 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { CartComponent } from './pages/cart/cart.component';
+import { OrderComponent } from './order/order.component';
 import { ProductComponent } from './pages/product/product.component';
 import { RgpdComponent } from './pages/rgpd/rgpd.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent }, // Page d'accueil
+    { path: '', pathMatch: 'full', redirectTo: 'register'},
+    { path: 'home', component: HomeComponent }, // Page d'accueil
     { path: 'login', component: LoginComponent }, // Page de connexion
     { path: 'register', component: RegisterComponent }, // Page d'inscription
     { path: 'cart', component: CartComponent },// Page du panier
+    { path: 'order', component: OrderComponent },// Page de confimartion de la commande
     { path: 'product/:id', component: ProductComponent },// Page de détail du produit
     { path: 'rgpd', component: RgpdComponent }, // Page RGPD
     { path: 'dashboard', component: DashboardComponent } // Page Dashboard (admin)

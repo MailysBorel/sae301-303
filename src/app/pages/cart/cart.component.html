@@ -30,7 +30,7 @@
                     <span>Total</span>
                     <span class="total-price">{{ total$ | async | currency:'EUR':'symbol':'1.2-2' }}</span>
                 </div>
-                <button class="btn btn-primary btn-block">Commander</button>
+                <a href="/order"><button class="btn btn-primary btn-block">Commander</button></a>
             </div>
 
         </div>
@@ -38,7 +38,8 @@
         <ng-template #emptyCart>
             <div class="empty-state">
                 <p>Votre panier est vide.</p>
-                <a href="/" class="btn btn-primary">Découvrir la carte</a>
+                <a href="/home" class="btn btn-primary">Découvrir la carte</a>
+                
             </div>
         </ng-template>
     </div>

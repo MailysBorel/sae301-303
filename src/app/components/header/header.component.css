@@ -32,6 +32,7 @@
     .main-nav {
         display: flex;
         gap: 20px;
+        
     }
 
     .nav-link {
