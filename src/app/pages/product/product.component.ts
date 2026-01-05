@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SushiService } from '../../core/services/sushi.service';
-import { HeaderComponent } from '../../components/header/header.component';
 import { SushiBox } from '../../shared/models/sushi-box.model';
 import { Observable, of } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
@@ -11,7 +10,7 @@ import { CartService } from '../../core/services/cart.service';
 @Component({
   selector: 'app-product',
   standalone: true,
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
 }) //

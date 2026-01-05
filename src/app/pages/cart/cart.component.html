@@ -1,40 +1,46 @@
-<app-header></app-header>
+<!-- Panier -->
 <div class="container cart-container">
     <h1>Votre Panier</h1>
-
+    <!-- Items du panier -->
     <div *ngIf="(cartItems$ | async) as items">
         <div *ngIf="items.length > 0; else emptyCart">
-
+            <!-- Liste des items du panier -->
             <div class="cart-items">
                 <div class="cart-item" *ngFor="let item of items">
+                    <!-- image du produit -->
                     <div class="item-image">
                         <img [src]="item.box.image" [alt]="item.box.name">
                     </div>
+                    <!-- Détails du produit -->
                     <div class="item-details">
                         <h3>{{ item.box.name }}</h3>
                         <p>{{ item.box.pieces }} pièces</p>
                     </div>
+                    <!-- Quantité -->
                     <div class="item-quantity">
                         <button (click)="decrementItem(item)">-</button>
                         <span>{{ item.quantity }}</span>
                         <button (click)="addItem(item)">+</button>
                     </div>
+                    <!-- Prix total -->
                     <div class="item-price">
                         {{ (item.box.price * item.quantity) | currency:'EUR':'symbol':'1.2-2' }}
                     </div>
                 </div>
             </div>
-
+                <!-- Résumé du panier -->
             <div class="cart-summary">
                 <div class="total-row">
+                    <!-- Total -->
                     <span>Total</span>
                     <span class="total-price">{{ total$ | async | currency:'EUR':'symbol':'1.2-2' }}</span>
                 </div>
+                <!-- Bouton de commande -->
                 <a href="/order"><button class="btn btn-primary btn-block">Commander</button></a>
             </div>
 
         </div>
-
+            <!-- Panier vide -->
         <ng-template #emptyCart>
             <div class="empty-state">
                 <p>Votre panier est vide.</p>
