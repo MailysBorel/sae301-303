@@ -10,110 +10,14 @@ import { Observable } from 'rxjs';
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, HeaderComponent, SushiCardComponent],
-  template: `
-    <app-header></app-header>
-    
-    <main>
-    
-    
-      <section>
-        <div>
-<img src="assets/images/hero2.png" alt="hero" style="width: 100%; height: auto; margin-bottom: 20px;">
-
-        </div>
-      </section>
-
-
-      <section class="categories container">
-        <ul class="category-list">
-            <li class="active">Boxes</li>
-        </ul>
-      </section>
-
-  
-      <section class="products container">
-        <div class="product-grid">
-          <!-- La boucle *ngFor parcourt le résultat 'async' (asynchrone) de l'observable 'boxes$' -->
-          <app-sushi-card *ngFor="let box of boxes$ | async" [box]="box"></app-sushi-card>
-        </div>
-      </section>
-    </main>
-  `,
-  styles: [`
-    .hero {
-      background-color: #f4f4f4; /* Placeholder for Hero Image */
-      height: 300px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      margin-bottom: 40px;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-    }
-
-    .hero::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background: rgba(0,0,0,0.3);
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 1;
-        color: var(--color-white);
-    }
-
-    .hero h1 {
-        font-size: 3rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        margin-bottom: 16px;
-    }
-
-    .categories {
-        margin-bottom: 32px;
-        overflow-x: auto;
-    }
-
-    .category-list {
-        display: flex;
-        gap: 16px;
-        padding-bottom: 8px;
-    }
-
-    .category-list li {
-        cursor: pointer;
-        padding: 8px 16px;
-        border-radius: 20px;
-        background-color: transparent;
-        border: 1px solid #ddd;
-        font-weight: 500;
-        white-space: nowrap;
-        transition: all 0.2s;
-    }
-
-    .category-list li.active, .category-list li:hover {
-        background-color: var(--color-black);
-        color: var(--color-white);
-        border-color: var(--color-black);
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: var(--grid-gap);
-      padding-bottom: 60px;
-    }
-  `]
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
   // Observable qui contiendra la liste des boîtes de sushis
   boxes$!: Observable<SushiBox[]>;
 
-  constructor(private sushiService: SushiService) { } 
+  constructor(private sushiService: SushiService) { }
 
   ngOnInit() {
     // Au chargement de la page, on demande au service de nous fournir les boîtes (API)

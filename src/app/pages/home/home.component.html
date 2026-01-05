@@ -1,0 +1,27 @@
+<app-header></app-header>
+
+<main>
+
+
+    <section>
+        <div>
+            <img src="assets/images/hero2.png" alt="hero" style="width: 100%; height: auto; margin-bottom: 20px;">
+
+        </div>
+    </section>
+
+
+    <section class="categories container">
+        <ul class="category-list">
+            <li class="active">Boxes</li>
+        </ul>
+    </section>
+
+
+    <section class="products container">
+        <div class="product-grid">
+            <!-- La boucle *ngFor parcourt le résultat 'async' (asynchrone) de l'observable 'boxes$' -->
+            <app-sushi-card *ngFor="let box of boxes$ | async" [box]="box"></app-sushi-card>
+        </div>
+    </section>
+</main>

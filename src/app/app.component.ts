@@ -4,10 +4,11 @@ import { RouterOutlet } from '@angular/router';
 // Composant racine du site 
 @Component({
     selector: 'app-root', // Sélecteur du composant
-    standalone: true, 
+    standalone: true,
     imports: [RouterOutlet], // Importation du RouterOutlet pour la navigation
-    template: `<router-outlet></router-outlet>` // Template utilisant le RouterOutlet   
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
-export class AppComponent { 
+export class AppComponent {
     title = 'mokea';// Titre de l'application
 }
