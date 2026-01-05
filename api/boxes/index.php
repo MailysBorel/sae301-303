@@ -45,7 +45,7 @@
     }
     
     }
-    } 
+    
     header("content-type: application/json; charset=utf-8");
     echo json_encode($boxes); //Retourner les boxes en JSON
 ?>
